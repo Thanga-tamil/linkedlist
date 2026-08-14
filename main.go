@@ -60,12 +60,14 @@ func prependll(ll *LinkList, data int8) {
 }
 
 func valAtIndex(ll *LinkList, index int8) int8 {
-
 	currentNode := ll.Head
 
-	var value int8 = currentNode.Data
+	var value int8 = currentNode.Data // return head value on index zero
+
 	for range index {
+		// move next node
 		currentNode = currentNode.Next
+		// change next node value
 		value = currentNode.Data
 	}
 
