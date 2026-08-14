@@ -13,9 +13,10 @@ type Node struct {
 func main() {
 	ll := &LinkList{}
 
-	appendll(ll, 1)
 	appendll(ll, 2)
 	appendll(ll, 3)
+	prependll(ll, 1)
+	prependll(ll, 0)
 
 	node := ll.Head
 	for node != nil {
@@ -40,4 +41,15 @@ func appendll(ll *LinkList, data int8) {
 	}
 
 	currentNode.Next = newNode
+}
+
+func prependll(ll *LinkList, data int8) { 
+
+	if ll.Head != nil {
+		newHead := &Node{Data: data, Next: ll.Head}
+		ll.Head = newHead
+	} else {
+		ll.Head = &Node{Data: data, Next: nil}; return
+	}
+
 }
