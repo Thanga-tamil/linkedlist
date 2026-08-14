@@ -16,13 +16,16 @@ func main() {
 	appendll(ll, 2)
 	appendll(ll, 3)
 	prependll(ll, 1)
-	prependll(ll, 0)
+	prependll(ll, 4)
 
 	node := ll.Head
 	for node != nil {
 		fmt.Println("linklist:", node.Data)
 		node = node.Next
 	}
+	var i int8 = 0
+	value := valAtIndex(ll, i)
+	fmt.Printf("index: %d value: %d\n", i, value)
 }
 
 func appendll(ll *LinkList, data int8) {
@@ -54,4 +57,17 @@ func prependll(ll *LinkList, data int8) {
 		ll.Head = &Node{Data: data, Next: nil}; return
 	}
 
+}
+
+func valAtIndex(ll *LinkList, index int8) int8 {
+
+	currentNode := ll.Head
+
+	var value int8 = currentNode.Data
+	for range index {
+		currentNode = currentNode.Next
+		value = currentNode.Data
+	}
+
+	return value
 }
