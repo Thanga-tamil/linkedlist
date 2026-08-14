@@ -44,9 +44,11 @@ func appendll(ll *LinkList, data int8) {
 }
 
 func prependll(ll *LinkList, data int8) { 
+	existingHead := ll.Head
 
-	if ll.Head != nil {
-		newHead := &Node{Data: data, Next: ll.Head}
+	if existingHead != nil {
+		// pad the existing head node in the new head node 
+		newHead := &Node{Data: data, Next: existingHead}
 		ll.Head = newHead
 	} else {
 		ll.Head = &Node{Data: data, Next: nil}; return
