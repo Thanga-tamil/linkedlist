@@ -24,8 +24,18 @@ func main() {
 		node = node.Next
 	}
 	var i int8 = 0
-	value := valAtIndex(ll, i)
+	value := valAtIndexll(ll, i)
 	fmt.Printf("index: %d value: %d\n", i, value)
+	i = 2
+	value = valAtIndexll(ll, i)
+	fmt.Printf("index: %d value: %d\n", i, value)
+
+
+	n := delAtIndexll(ll.Head, 1)
+	for n != nil {
+		fmt.Println("linklist2:", n.Data)
+		n = n.Next
+	}
 }
 
 func appendll(ll *LinkList, data int8) {
@@ -50,16 +60,15 @@ func prependll(ll *LinkList, data int8) {
 	existingHead := ll.Head
 
 	if existingHead != nil {
-		// pad the existing head node in the new head node 
+		// pad the existing head node in new head node 
 		newHead := &Node{Data: data, Next: existingHead}
 		ll.Head = newHead
 	} else {
 		ll.Head = &Node{Data: data, Next: nil}; return
 	}
-
 }
 
-func valAtIndex(ll *LinkList, index int8) int8 {
+func valAtIndexll(ll *LinkList, index int8) int8 {
 	currentNode := ll.Head
 
 	var value int8 = currentNode.Data // return head value on index zero
@@ -67,9 +76,21 @@ func valAtIndex(ll *LinkList, index int8) int8 {
 	for range index {
 		// move next node
 		currentNode = currentNode.Next
-		// change next node value
+		// change to next node's value
 		value = currentNode.Data
 	}
 
 	return value
+}
+
+func delAtIndexll(node *Node, value int8) *Node {
+	head := node
+	for head.Next != nil {
+		if head.Next.Data == value {
+			head.Next = head.Next.Next
+			return head
+		}
+		head = head.Next
+	}
+	return head
 }
