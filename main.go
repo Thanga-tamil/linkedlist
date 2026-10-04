@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type LinkList struct {
 	Head *Node
@@ -17,6 +19,7 @@ func main() {
 	appendll(ll, 3)
 	prependll(ll, 1)
 	prependll(ll, 4)
+	appendll(ll, 3)
 
 	node := ll.Head
 	for node != nil {
@@ -30,10 +33,11 @@ func main() {
 	value = valAtIndexll(ll, i)
 	fmt.Printf("index: %d value: %d\n", i, value)
 
+	newll := delAtIndexll(ll, 1)
 
-	n := delAtIndexll(ll.Head, 1)
+	n := newll.Head
 	for n != nil {
-		fmt.Println("linklist2:", n.Data)
+		fmt.Println("linklist1:", n.Data)
 		n = n.Next
 	}
 }
@@ -83,14 +87,28 @@ func valAtIndexll(ll *LinkList, index int8) int8 {
 	return value
 }
 
-func delAtIndexll(node *Node, value int8) *Node {
-	head := node
-	for head.Next != nil {
-		if head.Next.Data == value {
-			head.Next = head.Next.Next
-			return head
+func delAtIndexll(ll *LinkList, index int8) *LinkList {
+
+	if index == 0 {
+		// if index is 0 rerack the head node with 2nd node
+		// and return the same linklist
+		ll.Head = ll.Head.Next; return ll
+	} else {
+		newll := &LinkList{}
+
+		currentNode := ll.Head
+		for currentNode != nil {
+			node := &Node{Data: currentNode.Data, Next: currentNode.Next}
+			currentSubNode := newll.Head
+			if currentSubNode != nil {
+				for currentSubNode.Next != nil {
+					currentSubNode = currentSubNode.Next
+				}
+				currentSubNode = node
+			}
+			currentNode = currentNode.Next
 		}
-		head = head.Next
+		return newll
 	}
-	return head
+
 }
